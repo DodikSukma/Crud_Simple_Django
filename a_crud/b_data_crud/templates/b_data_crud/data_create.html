@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing</title>
+</head>
+<body>
+    <!-- data_create.html -->
+
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="id_name" class="form-label">Nama</label>
+      {{ form.name }}
+    </div>
+    <div class="mb-3">
+      <label for="id_age" class="form-label">Umur</label>
+      {{ form.age }}
+    </div>
+    <div class="mb-3">
+      <label for="id_height" class="form-label">Tinggi</label>
+      {{ form.height }}
+    </div>
+    <div class="mb-3">
+      <label for="id_sex" class="form-label">Jenis Kelamin</label>
+      {{ form.sex }}
+    </div>
+    <div id="resultDiv" style="display: none;">
+      <h3>Hasil Prediksi:</h3>
+      <p>{{ predictions }}</p>
+      <button type="button" onclick="saveData()">Simpan</button>
+      <button type="button" onclick="cancelData()">Batal</button>
+    </div>
+    <div id="buttonDiv">
+      <button type="button" onclick="showResult()">Lihat Hasil</button>
+      <button type="submit">Simpan</button>
+      <button type="button" onclick="cancelData()">Batal</button>
+    </div>
+  </form>
+  
+  <script>
+    function showResult() {
+      // Mendapatkan nilai form
+      var age = document.getElementById("id_age").value;
+      var height = document.getElementById("id_height").value;
+      var sex = document.getElementById("id_sex").value;
+  
+      // Kirim data ke endpoint prediksi melalui AJAX
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/predict/", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          // Tampilkan hasil prediksi
+          var resultDiv = document.getElementById("resultDiv");
+          resultDiv.style.display = "block";
+          resultDiv.innerHTML = "<h3>Hasil Prediksi:</h3>" + xhr.responseText;
+        }
+      };
+      var data = JSON.stringify({ age: age, height: height, sex: sex });
+      xhr.send(data);
+    }
+  
+    function saveData() {
+      // Submit form untuk menyimpan data
+      document.querySelector("form").submit();
+    }
+  
+    function cancelData() {
+      // Mengalihkan halaman kembali ke form awal
+      window.location.href = "{% url 'data_create' %}";
+    }
+  </script>
+  
+</body>
+</html>

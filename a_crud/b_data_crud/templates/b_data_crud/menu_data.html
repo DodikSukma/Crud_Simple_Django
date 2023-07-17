@@ -1,0 +1,38 @@
+{% extends 'b_data_crud/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Menu Data 1</h5>
+                            <a href="{% url 'data-1-page' %}" class="btn btn-primary">Lihat Data</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Menu Data 2</h5>
+                            <a href="{% url 'data-2-page' %}" class="btn btn-primary">Lihat Data</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Menu Data Print</h5>
+                            <a href="{% url 'data_create' %}" class="btn btn-primary">Prediksi Coba</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

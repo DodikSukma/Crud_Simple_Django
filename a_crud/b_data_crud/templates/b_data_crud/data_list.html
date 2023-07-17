@@ -1,0 +1,12 @@
+{% for item in data %}
+  <div>
+    <p>Nama: {{ item.name }}</p>
+    <p>Umur: {{ item.age }}</p>
+    <p>Tinggi: {{ item.height }}</p>
+    <p>Jenis Kelamin: {{ item.sex }}</p>
+    <p>Hasil Prediksi: {{ item.predictions }}</p>
+  </div>
+  <hr>
+{% empty %}
+  <p>Tidak ada data yang tersedia.</p>
+{% endfor %}

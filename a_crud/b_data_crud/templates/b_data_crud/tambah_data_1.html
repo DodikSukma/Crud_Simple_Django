@@ -1,0 +1,27 @@
+{% extends 'b_data_crud/base.html' %}
+
+{% block content %}
+{% load widget_tweaks %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Nama</label>
+                      {% render_field form.name placeholder=form.name.label class+="form-control"  %}
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label">Deskripsi</label>
+                      {% render_field form.description placeholder=form.description.label class+="form-control"  %}
+                    </div>
+                    <input type="submit" class="btn btn-primary"></input>
+                    <a href="{% url 'data-1-page' %}" class="btn btn-danger">Kembali</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

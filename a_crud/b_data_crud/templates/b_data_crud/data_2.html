@@ -1,0 +1,81 @@
+{% extends 'b_data_crud/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <a class="btn btn-secondary" href="{% url 'add-data-2-page' %}"> Tambah Data </a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Deskripsi</th>
+                            <th scope="col">Email</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Lakukan looping disini -->
+                        {% for data in data_2 %}
+                        <tr>
+                            <td>{{data.id}}</td>
+                            <td>{{data.name}}</td>
+                            <td>{{data.description }}</td>
+                            <td>{{data.email }}</td>
+                            <td>
+                                <a class="btn btn-danger" onclick="elementdata({{data.id}})" href="#">Hapus Data</a>
+                                <a class="btn btn-primary" href="edit_2/{{data.id}}">Edit Data</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% if messages %}
+
+    {% for m in messages %}
+
+    <script>
+        Swal.fire({
+            'title': '',
+            'text': '{{m}}',
+            'icon': 'success',
+        })
+    </script>
+
+    {% endfor %}
+
+
+{% endif %}
+{% for data in data_2 %}
+<script>
+    function elementdata(id){
+        Swal.fire({
+            'title': 'Hapus Data',
+            'text': 'Aapakah anda ingin menghapus {{data.name}} ?',
+            'icon': 'question',
+            'showCancelButton': true,
+            'confirmButtonColor': '#dc3545',
+            'confirmButtonText': 'Hapus',
+            'reverseButtons':true,
+            'cancelButtonText': 'Batal',
+
+        })
+        .then(function(result){
+            if (result.isConfirmed) {
+                window.location.href = "delete_2/"+id
+                }
+            })
+        }
+        
+</script>
+{% endfor %}
+{% endblock content %}
